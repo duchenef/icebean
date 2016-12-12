@@ -2,7 +2,7 @@
 
 Presentation:
 
-The IceBean is an web-based ISBN search tool that looks for book-related data and book covers from various book databases such as Amazon, Librarything, etc. Its goal is to help cataloguers by displaying as much information as possible on screen:
+The IceBean is a web-based ISBN search tool that looks for book-related data and book covers from various book databases such as Amazon, Librarything, etc. Its goal is to help cataloguers by displaying as much information as possible on screen:
 title, author, price, cover picture, subject headings, summary, Dewey classification number etc.
 
 The IceBean is being developed by F. Duchene at the International School of Geneva.
