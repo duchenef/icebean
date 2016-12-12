@@ -14,6 +14,7 @@ function amazon($isbn, $loc) {
   $associate_tag = 'httplibraries-21';
   $responseGroup = "Large";
   $imagepathAM = [];
+  $format = [];
 
 // Generate signed URL
 $request = aws_signed_request($loc, array(
@@ -40,6 +41,13 @@ else {
   } 
   else {
     for ($i=0; $i<3; $i++) {
+      #Pass if format is Kindle / avoid ebook price
+      if(isset($pxml->Items->Item[$i]->ItemAttributes->Format)) {
+        array_push($format, $pxml->Items->Item[$i]->ItemAttributes->Format);
+        if (strpos($format, 'Kindle') !== false) {
+          continue;
+        }
+      }
       if(isset($pxml->Items->Item[$i]->LargeImage->URL) && $imagepathAM[$i]=='') {
         array_push($imagepathAM, $pxml->Items->Item[$i]->LargeImage->URL);
       }
@@ -116,7 +124,7 @@ else {
   }
 }
 
-return array($request, $pxml, $AmRequest_status, $imagepathAM, $asin, $language, $reviewa, $reviewb, $formattedprice, $swissprice, $publisher, $pages, $heightinches, $heightcm, $publicationdate, $title, $amount, $currency, $author);
+return array($request, $pxml, $AmRequest_status, $imagepathAM, $asin, $language, $reviewa, $reviewb, $formattedprice, $swissprice, $publisher, $pages, $heightinches, $heightcm, $publicationdate, $title, $amount, $currency, $author, $format);
 
 }
 
@@ -143,7 +151,6 @@ $amazon = amazon($isbn, $loc);
 echo "<b>\$isbn :</b><BR> ".$isbn."<BR>";
 echo "<b>\$loc :</b><BR> ".$loc."<BR>";
 echo "<b>\$request ([0]) :</b><BR> ".$amazon[0]."<BR>";
-echo "<b>\$pxml ([1]) :</b><BR> ".$amazon[1]."<BR>";
 echo "<b>\$AmRequest_status ([2]) :</b><BR> ".$amazon[2]."<BR>";
 
 $imagepathAM=$amazon[3];
@@ -170,3 +177,4 @@ echo "<b>\$heightcm ([13]) :</b><BR> ".$amazon[13]."<BR>";
 echo "<b>\$publicationdate ([14]) :</b><BR> ".$amazon[14]."<BR>";
 echo "<b>\$title ([15]) :</b><BR> ".$amazon[15]."<BR>";
 echo "<b>\$author ([18]) :</b><BR> ".$amazon[18]."<BR>";
+echo "<b>\$format ([19]) :</b><BR> ".$amazon[19][0]."/".$amazon[19][1]."/".$amazon[19][2]."<BR>";

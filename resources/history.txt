@@ -1,5 +1,6 @@
+v465 20161212 Excluded Kindle from price calculation (Amazon function).<BR>
 v464 20161124 Improved Librarything request in Expand search (direct access to book page)
-v462 20161017 Added Goodreads request. Used for Book description. New Drop down menu (Goodreads is default, Google, Amaon).<BR>
+v462 20161017 Added Goodreads request. Used for Book description. New Drop down menu (Goodreads is default, Google, Amazon).<BR>
 v450 20161013 New feature: Library of congress language codes.<BR>
 v442 20161012 Improved the connection log.<BR>
 v441 20161012 Reformatted the output log.<BR>
@@ -44,7 +45,7 @@ v301 20130427 LT, OL, GB, save images buttons, save GB description.
 Known bugs:<BR>
 Currency converter only works with euros (i.e. from Amazon.fr)
 <BR>
-To do:<BR><BR>
+To do:<BR>ISBN to Work converter in Librarything (create a link that goes straightly to the covers page<BR>
 
 
 
