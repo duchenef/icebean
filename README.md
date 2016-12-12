@@ -40,3 +40,10 @@ Options:
 - If available, Amazon description can be preferred to Google's (for legal reasons, the Amazon descriptions you can see on their websites may not be shown here).
 
 - Please ignore the 'buy from Amazon' button: this button is compulsory for anyone who uses Amazon APIs.
+
+Debug:
+Each third-party API can be tested using one of the following:
+debug_amazon.php, usage: http://libraries.ecolint.ch/icebean/dev/debug_amazon.php?isbn=978092531976&reg=fr
+debug_classify.php, usage: http://libraries.ecolint.ch/icebean/dev/debug_classify.php?isbn=978092531976
+debug_goodreads.php, usage: http://libraries.ecolint.ch/icebean/dev/debug_goodreads.php?isbn=9780099561545
+debug_google.php, usage: http://libraries.ecolint.ch/icebean/dev/debug_google.php?isbn=9780099561545
