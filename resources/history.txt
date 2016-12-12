@@ -1,0 +1,51 @@
+v464 20161124 Improved Librarything request in Expand search (direct access to book page)
+v462 20161017 Added Goodreads request. Used for Book description. New Drop down menu (Goodreads is default, Google, Amaon).<BR>
+v450 20161013 New feature: Library of congress language codes.<BR>
+v442 20161012 Improved the connection log.<BR>
+v441 20161012 Reformatted the output log.<BR>
+v440 20161012 Added Amazon title when Google title is not available.<BR>
+v433 20161012 New feature: Fast heading autosuggest form.<BR>
+v422 20161011 New feature: Library of congress relator terms.<BR>
+v418 20161011 Added ISBN 13 to 10 converter and ISBN10 search to the BNF website.<BR>
+v410 20130430 [not released]<BR>
+v400 20161010 Layout was redesigned: screen size is now 1280px, css style sheets are now used<BR>
+v341 20160128 Removed try to extract other covers button, removed search classify for fast (now default), default width is now 1024px (800px before), layout redrawn accordingly, added BNF link in expand search section.<BR>
+v330 20151216 Google request is now isbn based. Should fix the issue with wrong summaries in german.<BR>
+v328 20141114 Book description invalid apostrophes and "..." are now replaced with valid UTF-8 characters.<BR>
+v327 20141104 Added links to LT, Classify, Worldcat and Amazon. 520 in Mandarin format (copy-paste between | and |).<BR>
+v326 20140116 Fixed a bug in Classify query that was caused by the picture resize module.<BR>
+v325 20131217 Added a module to resize cover pictures using any valid URL.<BR>
+v324 20131105 Wrote a new external function for currency conversion (Using Yahoo, as Google finance no longer exists)<BR>
+v323 20131010 Replaced Google with Amazon for default title (more reliable) / summary area: Amazon status now indicates if a product description was found /added a link to amazon website in the summary area as many am. summaries don't appear in the API due to copyright issues.<BR>
+v322 20131010 Added Amazon detailed page link near Summary<BR>
+v321 20130605 Rewrote Amazon module (now scans up to 4 items in XML file before returning a not found message, is now an external function) / Show additional Amazon covers (Experimental option).<BR>
+v320 20130604 Slight improvement: amazon subroutine now searches images in two different items<BR>
+v319 20130522 Bug correction: bad display of 1st FAST Heading / Rewrote Google Module (is now an external function) / Updated documentation.<BR>
+v318 20130515 Moved Height parameter field to the options panel / Moved pictures to top / Improved input check (better special signs management, digits are now accepted, last chr excepted) / Improved FAST Headings processing.<BR>
+v317 20130515 Rewrote Classify Module (is now an external function). It is now optionnal. Rewrote output to match Marc order.<BR>
+v316 20130513 Added FAST subject headings and Dewey from Classify.<BR>
+v316 20130509 Bugfix: problems with (, ), and /' in title<BR>
+v315 20130508 added an usage log [admin only] / Bugfix: problem with '?' in title / Rewrote Amazon descriptions module / added book details.<BR> 
+v314 20130507 Re-organised the app: dependent files are now in a resources subfolder. Added Documentation page.<BR>
+v313 20130503 Output log now shows if Other Google Covers status.<BR>
+v312 20130503 Submitted values are now kept as default for the next search. / Output log has been improved (items lonly appear if relevant) / Other Google Covers is now optional.<BR>
+v311 20130503 [not released]<BR>
+v310 20130503 ISBN can now be entered with dashes or spaces / Selector for Amazon of Google descriptions.<BR>
+v309 20130502 UI: new header, options pane, Ice Bean logo / added version number in header, bean favicon, moved Amazon button.<BR>
+v308 20130501 Book title is now used instead of Google's (unless Amazons' is not available).<BR>
+v307 20130501 Changed Amazon response group to 'Large', which contains more information, including pictures. / added icy layout.<BR>
+v306 20130501 Improved cache management: picture and descriptions are deleted if more than 24 hours old.<BR>
+v305 20130430 [not released]<BR>
+v304 20130430 added Buy from Amazon button<BR>
+v303 20130429 added region selector for Amazon.<BR>
+v302 20130429 added Amazon.<BR>
+v301 20130427 LT, OL, GB, save images buttons, save GB description.
+<BR><BR>
+Known bugs:<BR>
+Currency converter only works with euros (i.e. from Amazon.fr)
+<BR>
+To do:<BR><BR>
+
+
+
+
