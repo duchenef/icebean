@@ -42,13 +42,6 @@ else {
   } 
   else {
     for ($i=0; $i<3; $i++) {
-      #Pass if format is Kindle / avoid ebook price
-      if(isset($pxml->Items->Item[$i]->ItemAttributes->Format)) {
-        array_push($format, $pxml->Items->Item[$i]->ItemAttributes->Format);
-        if (strpos($format, 'Kindle') !== false) {
-          continue;
-        }
-      }
       if(isset($pxml->Items->Item[$i]->LargeImage->URL) && $imagepathAM[$i]=='') {
         array_push($imagepathAM, $pxml->Items->Item[$i]->LargeImage->URL);
       }
@@ -66,26 +59,9 @@ else {
       }
       if (isset($pxml->Items->Item[$i]->EditorialReviews->EditorialReview[0]->Content) && $reviewa=='') {
         $reviewa=$pxml->Items->Item[$i]->EditorialReviews->EditorialReview[0]->Content;
-        $review_status="Found";
       }
       if (isset($pxml->Items->Item[$i]->EditorialReviews->EditorialReview[1]->Content) && $reviewb=='') {
         $reviewb=$pxml->Items->Item[$i]->EditorialReviews ->EditorialReview[1]->Content;
-      }
-      if (isset($pxml->Items->Item[$i]->ItemAttributes->ListPrice->FormattedPrice)&& $formattedprice=='') {
-        $formattedprice = $pxml->Items->Item[$i]->ItemAttributes->ListPrice->FormattedPrice;
-        $currency = substr($formattedprice, 0, 3);
-        $amount = str_replace(",", ".", substr($formattedprice, 4, 20));
-
-//	  Deprecated Gogle finance API
-//        $currencyurl = "http://www.google.com/ig/calculator?hl=en&q=".$amount.$currency."=?CHF";
-//        $currencyjson = file_get_contents($currencyurl);
-//        preg_match('/rhs:\s*"([^"]+)"/', $currencyjson, $currencyjsonok);
-//        $swissprice = $currencyjsonok[1];
-//        $swissprice = round((float)substr($swissprice, 0, -13) * 2, 1)/2;
-
-//	new currency converter function
-	$swissprice = round(currency($currency, $amount) * 2, 1)/2;
-
       }
       if (isset($pxml->Items->Item[$i]->ItemAttributes->Publisher)&& $publisher=='') {
         $publisher = $pxml->Items->Item[$i]->ItemAttributes->Publisher;
@@ -104,7 +80,25 @@ else {
       if (isset($pxml->Items->Item[$i]->DetailPageURL)&& $pageurl=='') {
         $pageurl = $pxml->Items->Item[$i]->DetailPageURL;
       }
+      #Pass if format is Kindle / avoid ebook price
+      array_push($format, $pxml->Items->Item[$i]->ItemAttributes->Format." (".$i.")");
+        if (strpos($format[$i], 'Kindle') !== false) {
+          continue;
+        }
+      if ($formattedprice =='') {
+        if (isset($pxml->Items->Item[$i]->ItemAttributes->ListPrice->FormattedPrice)&& $formattedprice=='') {
+          $formattedprice = $pxml->Items->Item[$i]->ItemAttributes->ListPrice->FormattedPrice;
+        }
+        #if price not indicated in ItemAttribues, try first Offer in Offers
+        else {
+          $formattedprice = $pxml->Items->Item[$i]->Offers->Offer[0]->OfferListing->Price->FormattedPrice;
+        }
+      }
     }
+    $currency = substr($formattedprice, 0, 3);
+    $amount = str_replace(",", ".", substr($formattedprice, 4, 20));
+    $swissprice = round(currency($currency, $amount) * 2, 1)/2;
+
     // Messages d'erreur si rien n'a été trouvé dans aucun des items
     if($imagepathAM[0]=='') {$imagepathAM[0]="no image found";}
     if($title=='') {$title="title not found";}
