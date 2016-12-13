@@ -95,9 +95,23 @@ else {
         }
       }
     }
-    $currency = substr($formattedprice, 0, 3);
-    $amount = str_replace(",", ".", substr($formattedprice, 4, 20));
+    
+    switch ($loc) {
+      case 'fr':
+        $currency = 'EUR';
+        $amount = str_replace(",", ".", substr($formattedprice, 4, 20));
+        break;
+      case 'co.uk':
+        $currency = 'GBP';
+        $amount = substr($formattedprice, 2, 20);
+        break;
+      case 'com':
+        $currency = 'USD';
+        $amount = substr($formattedprice, 1, 20);
+    }
+
     $swissprice = round(currency($currency, $amount) * 2, 1)/2;
+
 
     // Messages d'erreur si rien n'a été trouvé dans aucun des items
     if($imagepathAM[0]=='') {$imagepathAM[0]="no image found";}

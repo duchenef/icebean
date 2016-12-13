@@ -1,3 +1,5 @@
+v467 20161213 Improved price retrieval after Amazon UK and COM started using currency symbols instead of currency codes.<BR>
+v466 20161213 Improved price retrieval / avoid Kindle editions (Amazon function).<BR>
 v465 20161212 Excluded Kindle from price calculation (Amazon function).<BR>
 v464 20161124 Improved Librarything request in Expand search (direct access to book page)
 v462 20161017 Added Goodreads request. Used for Book description. New Drop down menu (Goodreads is default, Google, Amazon).<BR>
