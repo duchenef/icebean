@@ -43,7 +43,7 @@ color:#002255;
 </style>
 </head>
     
-<version><verysmalli>the Ice Bean Documentation v1.3 20161012</verysmalli></version>
+<version><verysmalli>the Ice Bean Documentation v1.4 20161214</verysmalli></version>
 
 <table width = '1024'>
   <TR height='38px'>
@@ -62,7 +62,7 @@ color:#002255;
 
 <p><b>Main features:</b></p>
 
-<p>1. Searches the given ISBN's book on <b>Google books</b>, <b>Amazon</b>, <b>Librarything</b>, <b>Open Library</b>, and <b>OCLC Classify</b> (optional).<BR>
+<p>1. Searches the given ISBN's book on <b>Google books</b>, <b>Amazon</b>, <b>Goodreads</b>, <b>Open Library</b>, and <b>OCLC Classify</b>.<BR>
 2. Displays and resizes cover images that may be available from these websites.<BR>
 3. Displays item information with Marc reference for the following fields (when available):</p>
 <LI>Title
@@ -80,12 +80,13 @@ color:#002255;
 </LI>
 
 <p><b>Other Features:</b></p>
-<p>- The siZeBean is a tool that can resize JPEG pictures, using either an URL or by uploading a file to the server.<BR>
+<p>- The <b>siZeBean</b> is a tool that can resize JPEG pictures, using either an URL or by uploading a file to the server.<BR>
 - Pictures are ILS-ready: click on save and you'll get a jpeg file of the requested dimension and named from the book's name and ISBN.<BR>
+- Ctrl+Click the links in the cover images area to look for covers on <b>Librarything</b> (direct link to the cover-images page of the work that is associated to the current ISBN) or on <b>Google images</b> (searches for the current ISBN)<BR>
 - Descriptions can be saved too (as text files).<BR>
-- Searchable Library Of Congress relator terms, with codes.<BR>
-- Searchable FAST heading engine with indication of the facets.<BR>
-- Ctrl+Click the links in the Expand search area to search for the ISBN in Librarything, Classify, Worldcat, Amazon, BNF. It is also possible to search Nelligan using the author's name.</p> 
+- Searchable <b>Library Of Congress relator terms and Language codes</b>, with codes.<BR>
+- Searchable <b>FAST heading</b> engine with indication of the facets.<BR>
+- Ctrl+Click the links in the Expand search area to search for the ISBN in <b>Librarything</b>, <b>Classify</b>, <b>Worldcat</b>, <b>Amazon</b>, <b>BNF</b>. It is also possible to search <b>Nelligan</b> (Bibliothèques de Montreal/Canada), using the author's name.</p> 
 
 <p><b>Options:</b></p>
 <p>- Default resize height is 120, best for Mandarin, but you can change it.<BR>

@@ -18,7 +18,7 @@
     
 <body onload="document.forms.main_form.isbn.focus(); setUpExamplePage();setUpPage()">
 
-<version><verysmalli>the Ice Bean v4.67 20161213fd</verysmalli></version>
+<version><verysmalli>the Ice Bean v4.7 20161214fd</verysmalli></version>
 
 <?php
 
@@ -181,9 +181,13 @@ for ($i=1, $c=count($arrayAMimages); $i<=$c; $i++) {
   $ddced = (string)$classify[2];
   $fast = $classify[3];
 
-// definition des chemins vers les images de librarything et open library
+// Requetes librarything et open library
   // Librarything
-  $imagepathLT = urlencode("http://covers.librarything.com/devkey/965ffc4c5a2309a2e686d65539230b15/large/isbn/".$isbn);
+  // $imagepathLT = urlencode("http://covers.librarything.com/devkey/965ffc4c5a2309a2e686d65539230b15/large/isbn/".$isbn);
+  include 'resources/function_librarything.php';
+  $librarything = librarything($isbn);
+  $LTCovers = $librarything[4];
+  $LTStatus = $librarything[5];
   // Open Library
   $imagepathOL = urlencode("http://covers.openlibrary.org/b/isbn/".$isbn."-L.jpg");
 
@@ -316,8 +320,8 @@ $nh = "120";
     echo "<th align='left' colspan='4'>Title and Summary</th>";
   echo "</tr>";
   echo "<tr>";
-    echo "<td colspan='1'><small>Librarything</small></td>";
-//  echo "<td colspan='1'><small>Open Library</small></td>";
+ // echo "<td colspan='1'><small>Librarything</small></td>";
+    echo "<td colspan='1'><small>Open Library</small></td>";
     echo "<td colspan='1'><small>Goodreads</small></td>";
     echo "<td colspan='1'><small>Google books</small></td>";
     echo "<td colspan='1'><small>Amazon</small></td>";
@@ -326,8 +330,8 @@ $nh = "120";
     
   echo "</tr>";
   echo "<tr style='height:136px'>";
-    echo "<td colspan='1'><img align='middle' src='resources/resizer.php?url=".$imagepathLT."&h=".$nh."&fn=".$filenamelt."'></td>";
-//  echo "<td colspan='1'><img align='middle' src='resources/resizer.php?url=".$imagepathOL."&h=".$nh."&fn=".$filenameol."'></td>";
+//  echo "<td colspan='1'><img align='middle' src='resources/resizer.php?url=".$imagepathLT."&h=".$nh."&fn=".$filenamelt."'></td>";
+    echo "<td colspan='1'><img align='middle' src='resources/resizer.php?url=".$imagepathOL."&h=".$nh."&fn=".$filenameol."'></td>";
     echo "<td colspan='1'><img align='middle' src='resources/resizer.php?url=".$imagepathGR."&h=".$nh."&fn=".$filenamegr."'></td>";
     echo "<td colspan='1'><img align='middle' src='resources/resizer.php?url=".$imagepathGB."&h=".$nh."&fn=".$filenamegb."'></td>";
     echo "<td colspan='1'><img align='middle' src='resources/resizer.php?url=".$imagepathAM."&h=".$nh."&fn=".$filenameam."'></td>";
@@ -342,6 +346,12 @@ $nh = "120";
     echo "<td colspan='2'><small> Summary (520#a) </small></td>";
     echo "<td colspan='1'><form><input type='button' value='save' onClick=\"window.location.href='$descrfileurl'\"></form></td>";
     echo "<td colspan='1'><verysmalli>Amazon status: $review_status  </verysmalli></td>";
+  echo "</tr>";
+  echo "<tr>";
+    echo "<td colspan='2 align='left'><verysmalli><a href='".$LTCovers."''>Open LibraryThing's cover-images page</a></verysmalli></td>";
+    echo "<td colspan='2 align='left'><verysmalli><a href='https://www.google.ch/search?q=".$isbn."&tbm=isch'>Search Google images</a></verysmalli></td>";
+    
+    echo "<td colspan='4 align='right'><verysmalli></verysmalli></td>";
   echo "</tr>";
 
 echo "</center></td></TR>";
@@ -465,10 +475,14 @@ echo "<tr>";
       echo $descrurlam_status." -- ";
     }
 
-   echo " -- ".$author_status." -- ";
+   echo " -- ".$author_status." -- ".$AmRequest_status." -- ";
 
-   echo $AmRequest_status." -- ".$classify_status."<BR>";
+   if (!($LTStatus == NULL)) {
+      if ($LTStatus == TRUE) {echo " Librarything covers exist -- ";}
+      else {echo "Librarything covers not found --";}
+    }
 
+    echo $classify_status."<BR>";
 
 echo "</verysmalli></td></tr>";
 
