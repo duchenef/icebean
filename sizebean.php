@@ -10,7 +10,7 @@
 
     
 <body onload="document.forms.main_form.isbn.focus()">
-  <version><verysmalli>sizebean v131 20161011fd</verysmalli></version>
+  <version><verysmalli>sizebean v1.4 20161216fd</verysmalli></version>
 
 <?php
 
@@ -97,7 +97,9 @@ if ($uploadOk == 0) {
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         $upload_status = "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-        $url = "http://libraries.ecolint.ch/icebean/dev/uploads/$uploadname";
+        $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $actual_link = substr($actual_link, 0, (strlen($actual_link)-12));
+        $url = $actual_link."uploads/$uploadname";
         $upload_status= $url;
     } else {
         $upload_status= "Sorry, there was an error uploading your file.";
@@ -171,7 +173,8 @@ echo "<small>";
 echo $url_status.$url."<BR>";
 echo $nh_status.$nh." pixels.<BR>";
 echo "Default filename: ".$filenamelt."<BR>";
-echo $upload_status."<BR>";
+echo  "Server's actual path: ".$actual_link."<BR>";
+echo  "Upload status: ".$upload_status."<BR>";
 ?>
 
 <tr>
