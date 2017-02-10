@@ -1,0 +1,16 @@
+<script src="../js/clipboard.min.js"></script>
+
+<input id="post-shortlink" value="gloup">
+
+<button class="button" id="copy-button" data-clipboard-target="#post-shortlink">Copy</button>
+
+<script type="text/javascript">
+  
+(function(){
+  new Clipboard('#copy-button');
+
+})();
+var a = Clipboard.isSupported()
+console.log('Clipboard is supported: '+a)
+
+</script>

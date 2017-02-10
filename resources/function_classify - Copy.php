@@ -7,8 +7,7 @@ function classify($isbn) {
 
 $clrequest = "http://classify.oclc.org/classify2/Classify?isbn=".$isbn;
 $clresponse = @file_get_contents($clrequest);
-$fast = array();
-$fastID = array();
+$fast=array();
 
 if ($clresponse === FALSE) {
     echo "Classify request failed.\n";
@@ -45,12 +44,10 @@ else {
            $classify_status = $classify_status.$dewey2." , ";
         }
         // Fast
-        $heading = $pxml->getElementsByTagName("heading");
-           foreach ($heading as $heading) {
-           $h = $heading->nodeValue;
+        $headings = $pxml->getElementsByTagName("heading");
+           foreach ($headings as $heading) { 
+           $h= $heading->nodeValue;
            array_push($fast, (string)$h);
-           $id = $heading->getAttribute('ident');
-           array_push($fastID, (string)$id);
            }
            
         if ($fast == NULL) {
@@ -67,7 +64,7 @@ else {
 
   }
 
-return array($classify_status, (string)$dewey, (string)$dewey2, $fast, $fastID);
+return array($classify_status, (string)$dewey, (string)$dewey2, $fast);
 
 }
 
