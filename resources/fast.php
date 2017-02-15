@@ -1,5 +1,9 @@
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
-
+<html>
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+    <title>Fast2Mdr</title>   
+    <link rel="stylesheet" type="text/css" href="../css/fast.css">
+</head>
 <?php
 
 
@@ -30,6 +34,9 @@ $fastID = $classify[4];
 echo "FAST retrieval from ISBN in MARC21";
 echo "<BR>-----------------------------------------------<BR>";
 $i=0;
+$marcArray =[];
+$readArray =[];
+
 while ($i<=(count($fast))-1) {
   //echo $fast[$i]." / ".$fastID[$i]."<BR>";
 
@@ -42,32 +49,33 @@ while ($i<=(count($fast))-1) {
     //echo "record: <BR>";
     $record->registerXPathNamespace('foo', 'http://www.loc.gov/MARC21/slim');
     foreach( $record->xpath('foo:datafield[@tag="100" or @tag="110" or @tag="111" or @tag="130" or @tag="150" or @tag="151"]') as $datafield ) {
-      $marcField = chr(30).chr(9); 
+      $marcField = chr(30).chr(9);
+      $readField = ''; 
       // Field
       switch($datafield['tag']) {
         case '100':
-          echo "600 (person) \n";
           $marcField .= '600';
+          $readField .= '600';
           break;
         case '110':
-          echo "610 (corporate name) \n";
           $marcField .= '610';
+          $readField .= '610';
           break;
         case '11':
-          echo "611 (event) \n";
           $marcField .= '611';
+          $readField .= '611';
           break;
         case '130':
-          echo "630 (title) \n";
           $marcField .= '630';
+          $readField .= '630';
           break;
         case '150':
-          echo "650 (subject) \n";
           $marcField .= '650';
+          $readField .= '650';
           break;
         case '151':
-          echo "651 (geographical) \n";
           $marcField .= '651';
+          $readField .= '651';
           break;
       }
       $marcField .= chr(9);
@@ -77,76 +85,99 @@ while ($i<=(count($fast))-1) {
           if ($i1 == ' ') {
             $i1 = '_';
           }
-          echo $i1;
       $marcField .= chr(9);
       $i2 = '7';
-      echo $i2;
       $marcField .= $i2;
 
-      echo ' ';
       $marcField .= chr(10);
+      $readField .= ' '.$i1.$i2.' ';
 
       // subfields
       $datafield->registerXPathNamespace('foo', 'http://www.loc.gov/MARC21/slim');
       foreach( $datafield->xpath('foo:subfield') as $sf ) {
-        echo ' ';
-        echo '$', $sf['code'] . ' ' . $sf;
         $marcField .= $sf['code'].chr(9).$sf.chr(10);
+        $readField .= '$'.$sf['code'].' '.$sf.' ';
         $tmpsf = $sf;
       }
     // Ponctuation
     if (substr($tmpsf, -1) != ')') {
-      echo '.';
+      $marcField = substr_replace($marcField, '.', -1, 0);
+      $readField = rtrim($readField).'. ';
     }
     // subfield 2: value: fast
-      echo ' ' ;
-      echo  '$2 fast';
+      $marcField .= '2'.chr(9).'fast'.chr(10);
+      $readField .= '$2 fast';
+
     }
     $marcField .= chr(0);
-    echo ' ///';
-    //echo $marcField;
+    array_push($marcArray, json_encode($marcField));
+    array_push($readArray, $readField);
+    //echo $readField;
+    //echo "<BR>";
   }
-  echo "<BR>";
   $i++;
 }
 
-$marc_json = json_encode($marcField);
 // verification
-echo "-----------------------------------------------<BR>";
 //echo "Url: ".$fldRequest."<BR>";
+
+// Affichage des resultats en html et caches pour javascript
+$j = 0;
+
+echo '<div id="wrapper">';
+foreach ($marcArray as $value) {
+  $j +=1;
+
+  echo '<div class ="fast" id="fastdisplay'.$j.'">'.$readArray[$j-1].'</div>';
+  echo '<button class="buttons" id="copy-button'.$j.'" data-clipboard-target="#fast'.$j.'">Copy '.$j.'</button>';
+  echo '<div class ="hidden" id="fast'.$j.'" style="display: none;">'.$value.'</div>'; 
+}
+echo '</div>';
 ?>
 
-<div id="script-target" >
-  <?php 
-          echo $marc_json; /* You have to escape because the result
-                                             will not be valid HTML otherwise. */
-      ?>
-</div>
-
-
-
-<script src="../js/clipboard.min.js">/* ne fonctionne pas parce que tab suivi d'espace est traite comme un seul charactere espace*/</script>
-
-<button class="button" id="copy-button" data-clipboard-target="#script-target">Copy</button>
-
-
+<script src="../js/clipboard.min.js"></script>
 <script type="text/javascript">
+    /*var div1 = document.getElementById("fast1");
+    var myData1 = JSON.parse(div1.textContent);
+    var div2 = document.getElementById("fast2");
+    var myData2 = JSON.parse(div2.textContent); 
+    var div3 = document.getElementById("fast3");
+    var myData3 = JSON.parse(div3.textContent); */  
 
-    var div = document.getElementById("script-target");
-    var myData = JSON.parse(div.textContent);
-  
-/*(function(){
-  new Clipboard('#copy-button');*/
+    var divs = document.getElementsByClassName("hidden");
+    var i;
+    for (i = 0; i < divs.length; i++) {
+        var marcData = divs[i];
+        var JsonData = JSON.parse(divs[i].textContent);
+        var button = '#'+document.getElementsByClassName('buttons')[i].id;
+        new Clipboard(button, {
+            text: function(trigger) {
+                return JsonData;
+            }
+        });
+    } 
 
-new Clipboard('.button', {
+/**
+new Clipboard('#copy-button1', {
     text: function(trigger) {
-        return myData;
+        return myData1;
     }
 });
 
-var a = Clipboard.isSupported()
-console.log('Clipboard is supported: '+a)
+new Clipboard('#copy-button2', {
+    text: function(trigger) {
+        return myData2;
+    }
+});
+
+new Clipboard('#copy-button3', {
+    text: function(trigger) {
+        return myData3;
+    }
+});
+*/
+
+/*var a = Clipboard.isSupported()
+console.log('Clipboard is supported: '+a)*/
 
 </script>
-
-

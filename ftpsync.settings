@@ -4,10 +4,10 @@
 
 	"default": {
 
-		"host": "10.2.0.26",
-		"username": "mandarin",  // or null for anonymous login
-		"password": "man2012DARIN",
-		"path": "/wwwroot/icebean/dev/",
+		"host": "dietpifred.noip.me",
+		"username": "root",  // or null for anonymous login
+		"password": "Charl0tte",
+		"path": "/icebean/",
 
 		"upload_on_save": true, // set *false* if you do not want to upload on save!
 
