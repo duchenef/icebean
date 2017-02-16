@@ -127,7 +127,7 @@ $j = 0;
 echo '<div id="fastwrapper">';
 foreach ($marcArray as $value) {
   echo '<div class ="fast" id="fastdisplay'.$j.'">'.$readArray[$j].'</div>';
-  echo '<button class="buttons" id="copy-button'.$j.'" data-clipboard-target="#fast'.$j.'">Copy '.$j.'</button>';
+  echo '<button class="buttons" id="copy-button'.$j.'" data-clipboard-target="#fast'.$j.'">Copy</button>';
   echo '<div class ="hidden" id="fast'.$j.'" style="display: none;">'.$value.'</div>'; 
   $j++;
 }
@@ -136,25 +136,6 @@ echo '</div>';
 
 <script src="../js/clipboard.min.js"></script>
 <script type="text/javascript">
-    /*var div1 = document.getElementById("fast1");
-    var myData1 = JSON.parse(div1.textContent);
-    var div2 = document.getElementById("fast2");
-    var myData2 = JSON.parse(div2.textContent); 
-    var div3 = document.getElementById("fast3");
-    var myData3 = JSON.parse(div3.textContent); */  
-
-    var divs = document.getElementsByClassName("hidden");
-    var buttons = [];
-    var mandarin = [];
-    var i;
-    for (i = 0; i < divs.length; i++) {
-        console.log(i);
-        mandarin.push(JSON.parse(divs[i].textContent));
-        buttons.push('#'+document.getElementsByClassName('buttons')[i].id);
-    } 
-
-console.log(mandarin);
-console.log(buttons);
 
 new Clipboard('.buttons', {
             text: function(trigger) {
@@ -162,27 +143,6 @@ new Clipboard('.buttons', {
                 return JSON.parse(trigger.nextElementSibling.textContent);
             }
         });
-
-
-/**
-new Clipboard('#copy-button1', {
-    text: function(trigger) {
-        return myData1;
-    }
-});
-
-new Clipboard('#copy-button2', {
-    text: function(trigger) {
-        return myData2;
-    }
-});
-
-new Clipboard('#copy-button3', {
-    text: function(trigger) {
-        return myData3;
-    }
-});
-*/
 
 /*var a = Clipboard.isSupported()
 console.log('Clipboard is supported: '+a)*/
