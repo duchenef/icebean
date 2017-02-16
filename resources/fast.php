@@ -124,13 +124,12 @@ while ($i<=(count($fast))-1) {
 // Affichage des resultats en html et caches pour javascript
 $j = 0;
 
-echo '<div id="wrapper">';
+echo '<div id="fastwrapper">';
 foreach ($marcArray as $value) {
-  $j +=1;
-
-  echo '<div class ="fast" id="fastdisplay'.$j.'">'.$readArray[$j-1].'</div>';
+  echo '<div class ="fast" id="fastdisplay'.$j.'">'.$readArray[$j].'</div>';
   echo '<button class="buttons" id="copy-button'.$j.'" data-clipboard-target="#fast'.$j.'">Copy '.$j.'</button>';
   echo '<div class ="hidden" id="fast'.$j.'" style="display: none;">'.$value.'</div>'; 
+  $j++;
 }
 echo '</div>';
 ?>
@@ -145,17 +144,25 @@ echo '</div>';
     var myData3 = JSON.parse(div3.textContent); */  
 
     var divs = document.getElementsByClassName("hidden");
+    var buttons = [];
+    var mandarin = [];
     var i;
     for (i = 0; i < divs.length; i++) {
-        var marcData = divs[i];
-        var JsonData = JSON.parse(divs[i].textContent);
-        var button = '#'+document.getElementsByClassName('buttons')[i].id;
-        new Clipboard(button, {
+        console.log(i);
+        mandarin.push(JSON.parse(divs[i].textContent));
+        buttons.push('#'+document.getElementsByClassName('buttons')[i].id);
+    } 
+
+console.log(mandarin);
+console.log(buttons);
+
+new Clipboard('.buttons', {
             text: function(trigger) {
-                return JsonData;
+                console.log(JSON.parse(trigger.nextElementSibling.textContent));
+                return JSON.parse(trigger.nextElementSibling.textContent);
             }
         });
-    } 
+
 
 /**
 new Clipboard('#copy-button1', {

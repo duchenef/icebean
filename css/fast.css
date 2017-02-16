@@ -1,6 +1,6 @@
-#wrapper {
+#fastwrapper {
 display:block;
-
+width: 500px;
 }
 
 .fast {
@@ -21,4 +21,9 @@ display:block;
  -webkit-font-smoothing: antialiased;
  font-weight: bold;
  text-align: center;
+}
+
+button:hover, button:focus {
+  opacity: 0.75;
+  cursor: pointer;
 }
