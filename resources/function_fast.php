@@ -1,23 +1,25 @@
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 <?php
-function fast($isbn) {
+function fast2mdr($isbn) {
 
   // Requete Classify
-  // retourne un tableau: [0]=status, [1]=dewey, [2]=edition ddc, [3]=tableau contenant les FAST
+  // retourne un tableau: [0]=status, [1]=dewey, [2]=edition ddc, [3]=tableau contenant les FAST, [4]= tableau contenant les IDs des FAST
   include 'function_classify.php';
 
   $classify = classify($isbn);
   $classify_status = (string)$classify[0];
 
   // recuperation des FASTs
-  $fast = $classify[3];
+  $classify_status = (string)$classify[0];
+  $dewey = (string)$classify[1];
+  $ddced = (string)$classify[2];
+  $fastClassify = $classify[3];
   $fastID = $classify[4];
   $i=0;
   $marcArray =[];
   $readArray =[];
-  $ooutput =[];
 
-  while ($i<=(count($fast))-1) {
+  while ($i<=(count($fastClassify))-1) {
     //echo $fast[$i]." / ".$fastID[$i]."<BR>";
 
     // Requete FAST linked data
@@ -93,6 +95,6 @@ function fast($isbn) {
     }
     $i++;
   }
-return array($marcArray, $readArray);
+return array($marcArray, $readArray, $classify_status, $dewey, $ddced);
 }
 ?>

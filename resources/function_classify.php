@@ -67,6 +67,7 @@ else {
 
   }
 
+// retourne un tableau: [0]=status, [1]=dewey, [2]=edition ddc, [3]=tableau contenant les FAST, [4]= tableau contenant les IDs des FAST
 return array($classify_status, (string)$dewey, (string)$dewey2, $fast, $fastID);
 
 }

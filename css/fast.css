@@ -1,6 +1,8 @@
 #fastwrapper {
 display:block;
 width: 500px;
+font-family:"Verdana";
+font-size:12px;
 }
 
 .fast {

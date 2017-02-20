@@ -5,6 +5,33 @@ version {
     top:20px;
 }
 
+#fastwrapper {
+display:block;
+width: 640px;
+font-family:"Verdana";
+font-size:12px;
+}
+
+.fast {
+ display:inline-block;
+ text-align: left;
+ width: 500px;
+}
+
+.buttons {
+ display:inline-block;
+ width: 100px;
+ border-radius: 5px;
+ border: none;
+ font-size: 0.8em;
+ padding: 0.1em 0.1em;
+ background: #548dd4;
+ border: 0px solid #0061a0;
+ color: white;
+ -webkit-font-smoothing: antialiased;
+ font-weight: bold;
+ text-align: center;
+}
 
 *, *:before, *:after {
   -moz-box-sizing: border-box;
@@ -74,20 +101,6 @@ input[type=text] {
 }
 
 
-button {
-  width: 120px;
-  float: right;
-  border-radius: 5px;
-  border: none;
-  font-size: 1em;
-  padding: 0.2em 0.2em;
-  background: #548dd4;
-  border: 0px solid #0061a0;
-  color: white;
-  -webkit-font-smoothing: antialiased;
-  font-weight: bold;
-  text-align: center;
-}
 button:hover, button:focus {
   opacity: 0.75;
   cursor: pointer;

@@ -18,7 +18,7 @@
     
 <body onload="document.forms.main_form.isbn.focus(); setUpExamplePage();setUpPage()">
 
-<version><verysmalli>the Ice Bean v4.7 20161214fd</verysmalli></version>
+<version><verysmalli>the Ice Bean v4.8 20170220fd</verysmalli></version>
 
 <?php
 
@@ -172,14 +172,24 @@ for ($i=1, $c=count($arrayAMimages); $i<=$c; $i++) {
   
 
 // Requete Classify
-// retourne un tableau: [0]=status, [1]=dewey, [2]=edition ddc, [3]=tableau contenant les FAST
+// retourne un tableau: [0]=status, [1]=dewey, [2]=edition ddc, [3]=tableau contenant les FAST, [4]= tableau contenant les IDs des FAST
+//
+//  include 'resources/function_classify.php';
+//  $classify = classify($isbn);
+// $classify_status = (string)$classify[0];
+//  $dewey = (string)$classify[1];
+//  $ddced = (string)$classify[2];
+//  $fast = $classify[3];
 
-  include 'resources/function_classify.php';
-  $classify = classify($isbn);
-  $classify_status = (string)$classify[0];
-  $dewey = (string)$classify[1];
-  $ddced = (string)$classify[2];
-  $fast = $classify[3];
+// appel fonction fast
+// retourne un tableau: [0]=fast format marc mandarin, [1]=fast format lisible, [2]=status, [3]=dewey, [4]= edition ddc
+  include 'resources/function_fast.php';
+  if ($isbn != '') {$fastresults = fast2mdr($isbn);}
+  $marcArray = $fastresults[0];
+  $readArray = $fastresults[1];
+  $classify_status = (string)$fastresults[2];
+  $dewey = (string)$fastresults[3];
+  $ddced = (string)$fastresults[4];
 
 // Requetes librarything et open library
   // Librarything
@@ -369,16 +379,27 @@ echo "</center></td></TR>";
     echo "<td colspan='4' rowspan='9'align='right'><small>";
         // Classify (6xx)
         // Affichage des fast dans la colonne de droite
-        echo $fast[0];
-        if ($fast[0] ='') {
-          echo "ot found";
+        //echo $fast[0];
+        //if ($fast[0] ='') {
+        //  echo "ot found";
+        //}
+        //$i=1;
+        //while ($i<=(count($fast))-1) {
+        //  echo "<br>";
+        //  echo $fast[$i];
+        //  $i++;
+        //}
+
+        // affichage des resultats en html et caches pour javascript
+        $j = 0;
+        echo '<div id="fastwrapper">';
+        foreach ($marcArray as $value) {
+        echo '<div class ="fast" id="fastdisplay'.$j.'">'.$readArray[$j].'</div>';
+        echo '<button class="buttons" id="copy-button'.$j.'" data-clipboard-target="#fast'.$j.'">Copy</button>';
+        echo '<div class ="hidden" id="fast'.$j.'" style="display: none;">'.$value.'</div>'; 
+        $j++;
         }
-        $i=1;
-        while ($i<=(count($fast))-1) {
-          echo "<br>";
-          echo $fast[$i];
-          $i++;
-        }
+
     echo "</small></td>";
   echo "</tr>";
   echo "<tr>";
@@ -512,7 +533,15 @@ echo "<tr align = 'right'>
 </body>
 </html>
 
+<script src="js/clipboard.min.js"></script>
 <script>
+
+new Clipboard('.buttons', {
+            text: function(trigger) {
+                console.log(JSON.parse(trigger.nextElementSibling.textContent));
+                return JSON.parse(trigger.nextElementSibling.textContent);
+            }
+        });
 
 // RELATOR TERMS AJAX
 // Get the <datalist> and <input> elements.
