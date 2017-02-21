@@ -15,6 +15,9 @@ else
 $isbn = $_GET["isbn"];
 }
 // appel fonction fast
+$marcArray = [];
+$readArray = [];
+
 include 'resources/function_fast.php';
 $fastresults = fast2mdr($isbn);
 $marcArray = $fastresults[0];
@@ -29,6 +32,7 @@ foreach ($marcArray as $value) {
   $j++;
 }
 echo '</div>';
+var_dump($marcArray) ;
 ?>
 
 <script src="js/clipboard.min.js"></script>

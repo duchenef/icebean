@@ -7,7 +7,6 @@ function fast2mdr($isbn) {
   include 'function_classify.php';
 
   $classify = classify($isbn);
-  $classify_status = (string)$classify[0];
 
   // recuperation des FASTs
   $classify_status = (string)$classify[0];
@@ -19,6 +18,8 @@ function fast2mdr($isbn) {
   $marcArray =[];
   $readArray =[];
 
+// si classify ne retourne pas de fast, ne rien executer
+if ($fastClassify !='not found') {
   while ($i<=(count($fastClassify))-1) {
     //echo $fast[$i]." / ".$fastID[$i]."<BR>";
 
@@ -95,6 +96,7 @@ function fast2mdr($isbn) {
     }
     $i++;
   }
+}
 return array($marcArray, $readArray, $classify_status, $dewey, $ddced);
 }
 ?>
