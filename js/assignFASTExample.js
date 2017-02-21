@@ -25,11 +25,15 @@ function setUpPage() {
           source: autoSubjectExample, 
           minLength: 1,
    		 select: function(event, ui) {
-              jQuery('#exampleXtra').html("&nbsp; Facet <b>"+ getTypeFromTag(ui.item.tag)+ "</b>");
+              /*jQuery('#exampleXtra').html("&nbsp;"+ getTypeFromTag(ui.item.tag)+ " / "+ ui.item.idroot);*/
+              var marcfield = String.fromCharCode(30) + String.fromCharCode(9) + ui.item.tag +' AAAA';
+              marcfield = marcfield.replace('1', '6');
+              marcfield += String.fromCharCode(9) + ui.item.indicator + String.fromCharCode(9) + '7' + String.fromCharCode(10) + 'a'
+              console.log(marcfield);
+              jQuery('#exampleXtra').html("&nbsp;"+ getTypeFromTag(ui.item.tag) + " / Marc: " + marcfield);
           } //end select
       } 
    ).data( "autocomplete" )._renderItem = function( ul, item ) { formatSuggest(ul, item);};
-
 }  //end setUpPage()
 
 /*  
@@ -45,6 +49,11 @@ function autoSubjectExample(request, response) {
   */
   
 function exampleStyle(res) {
+  return res["auth"].replace("--","/"); 
+   
+}
+
+function formatFAST(res) {
   return res["auth"].replace("--","/"); 
    
 }

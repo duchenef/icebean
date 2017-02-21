@@ -18,7 +18,7 @@
     
 <body onload="document.forms.main_form.isbn.focus(); setUpExamplePage();setUpPage()">
 
-<version><verysmalli>the Ice Bean v4.8 20170220fd</verysmalli></version>
+<version><verysmalli>the Ice Bean v4.82 20170221fd</verysmalli></version>
 
 <?php
 
@@ -170,7 +170,6 @@ for ($i=1, $c=count($arrayAMimages); $i<=$c; $i++) {
   $GRdescr = $goodreads[3];
   $imagepathGR = $goodreads[6];
   
-
 // Requete Classify
 // retourne un tableau: [0]=status, [1]=dewey, [2]=edition ddc, [3]=tableau contenant les FAST, [4]= tableau contenant les IDs des FAST
 //
@@ -392,14 +391,13 @@ echo "</center></td></TR>";
 
         // affichage des resultats en html et caches pour javascript
         $j = 0;
-        echo '<div id="fastwrapper">';
-        foreach ($marcArray as $value) {
-        echo '<div class ="fast" id="fastdisplay'.$j.'">'.$readArray[$j].'</div>';
-        echo '<button class="buttons" id="copy-button'.$j.'" data-clipboard-target="#fast'.$j.'">Copy</button>';
-        echo '<div class ="hidden" id="fast'.$j.'" style="display: none;">'.$value.'</div>'; 
-        $j++;
-        }
-
+          echo '<div id="fastwrapper">';
+          foreach ($marcArray as $value) {
+            echo '<div class ="fast" id="fastdisplay'.$j.'">'.$readArray[$j].'</div>';
+            echo '<button class="buttons" id="copy-button'.$j.'" data-clipboard-target="#fast'.$j.'">Copy</button>';
+            echo '<div class ="hidden" id="fast'.$j.'" style="display: none;">'.$value.'</div>'; 
+            $j++;
+          }
     echo "</small></td>";
   echo "</tr>";
   echo "<tr>";
@@ -536,6 +534,7 @@ echo "<tr align = 'right'>
 <script src="js/clipboard.min.js"></script>
 <script>
 
+/* copie des fast dans le clipboard*/
 new Clipboard('.buttons', {
             text: function(trigger) {
                 console.log(JSON.parse(trigger.nextElementSibling.textContent));
@@ -543,8 +542,8 @@ new Clipboard('.buttons', {
             }
         });
 
-// RELATOR TERMS AJAX
-// Get the <datalist> and <input> elements.
+/* RELATOR TERMS AJAX
+   Get the <datalist> and <input> elements. */
 var dataList = document.getElementById('json-datalist');
 var input = document.getElementById('ajax');
 
@@ -584,8 +583,8 @@ input.placeholder = "Loading options...";
 request.open('GET', 'resources/relatorterms.json', true);
 request.send();
 
-// LANGUAGE CODES AJAX
-// Get the <datalist> and <input> elements.
+/* LANGUAGE CODES AJAX
+   Get the <datalist> and <input> elements. */
 var dataList_lng = document.getElementById('json-lng');
 var input_lng = document.getElementById('lng');
 
@@ -628,6 +627,7 @@ request_lng.send();
 </script>
 
 <script>
+  /* Google analytics*/
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
