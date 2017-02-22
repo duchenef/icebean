@@ -59,6 +59,6 @@ http://libraries.ecolint.ch/icebean/dev/debug_goodreads.php?isbn=9780099561545
 
 debug_google.php, usage:
 http://libraries.ecolint.ch/icebean/dev/debug_google.php?isbn=9780099561545
-<BR>
+
 debug_fast.php, usage: 
 http://libraries.ecolint.ch/icebean/dev/debug_fast.php?isbn=9781593276034
