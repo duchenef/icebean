@@ -43,7 +43,7 @@ if ($fastClassify !='not found') {
             $marcField .= '610';
             $readField .= '610';
             break;
-          case '11':
+          case '111':
             $marcField .= '611';
             $readField .= '611';
             break;
