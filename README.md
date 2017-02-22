@@ -50,11 +50,15 @@ Each third-party API can be tested using one of the following:
 
 debug_amazon.php, usage:
 http://libraries.ecolint.ch/icebean/dev/debug_amazon.php?isbn=978092531976&reg=fr
+
 debug_classify.php, usage:
 http://libraries.ecolint.ch/icebean/dev/debug_classify.php?isbn=978092531976
+
 debug_goodreads.php, usage:
 http://libraries.ecolint.ch/icebean/dev/debug_goodreads.php?isbn=9780099561545
+
 debug_google.php, usage:
 http://libraries.ecolint.ch/icebean/dev/debug_google.php?isbn=9780099561545
+
 debug_fast.php, usage: 
 http://libraries.ecolint.ch/icebean/dev/debug_fast.php?isbn=9781593276034
