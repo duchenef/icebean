@@ -35,7 +35,7 @@ Other Features:
 - Pictures are ILS-ready: click on save and you'll get a jpeg file of the requested dimension and named from the book's name and ISBN.
 - Descriptions can be saved too (as text files).
 - Searchable Library Of Congress relator terms, with codes.
-- Searchable FAST heading engine with indication of the facets.
+- Searchable FAST heading engine with indication of the facets. Fast headings can be copy/pasted straight into Mandarin M3 (works for ISBN-retrieved FAST as well as for the lookup box.)
 - Ctrl+Click the links in the Expand search area to search for the ISBN in Librarything, Classify, Worldcat, Amazon, BNF. It is also possible to search Nelligan using the author's name.
 
 Options:
@@ -48,8 +48,13 @@ Options:
 Debug:
 Each third-party API can be tested using one of the following:
 
-debug_amazon.php, usage: http://libraries.ecolint.ch/icebean/dev/debug_amazon.php?isbn=978092531976&reg=fr
-debug_classify.php, usage: http://libraries.ecolint.ch/icebean/dev/debug_classify.php?isbn=978092531976
-debug_goodreads.php, usage: http://libraries.ecolint.ch/icebean/dev/debug_goodreads.php?isbn=9780099561545
-debug_google.php, usage: http://libraries.ecolint.ch/icebean/dev/debug_google.php?isbn=9780099561545
-debug_fast.php, http://libraries.ecolint.ch/icebean/dev/debug_fast.php?isbn=9781593276034
+debug_amazon.php, usage:
+http://libraries.ecolint.ch/icebean/dev/debug_amazon.php?isbn=978092531976&reg=fr
+debug_classify.php, usage:
+http://libraries.ecolint.ch/icebean/dev/debug_classify.php?isbn=978092531976
+debug_goodreads.php, usage:
+http://libraries.ecolint.ch/icebean/dev/debug_goodreads.php?isbn=9780099561545
+debug_google.php, usage:
+http://libraries.ecolint.ch/icebean/dev/debug_google.php?isbn=9780099561545
+debug_fast.php, usage: 
+http://libraries.ecolint.ch/icebean/dev/debug_fast.php?isbn=9781593276034
