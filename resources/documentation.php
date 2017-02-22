@@ -58,26 +58,23 @@ color:#002255;
 <p><b>Presentation:</b></p>
 
 <p>The Ice Bean is an ISBN search tool that queries multiple websites, trying to retrieve cover images and other book-related information. Pictures are  resized so they can be added to a library catalogue (field 996#a in Mandarin or other).</p>  
-<p>The input must be an ISBN. It can be typed or scanned in 'ISBN 10 or 13' form field. The application can read ISBNs 10 and 13, EAN and even Amazon ASIN numbers. Nevertheless, depending on how the information is stored in each database, searching for an ISBN 10 or 13 does not alway return exactly the same result. A good recommendation is to search for the ISBN as it's printed on the actual book. It is also useful to sometimes search using the old ISBN 10 for reprinted editions: even if only the modern 13-character ISBN is printed on the book, as the old ISBN 10 is likely to be the one to be stored in some databases. If it's unknown, the ISBN 10 is automatically calculated from the ISBN 13 and shown in the 'Book details' section of the Icebean.</p>
+<p>The input must be an ISBN. It can be typed or scanned in 'ISBN 10 or 13' form field. The application can read ISBNs 10 and 13, EAN and even Amazon ASIN numbers. Nevertheless, depending on how the information that is stored in each database, searching for an ISBN 10 or 13 does not alway return the same values. A good recommendation is to search for the ISBN that is printed on the actual book. It is also useful to sometimes search using the ISBN 10 for reprinted editions, even if only the ISBN13 is printed on the back of the book. If the ISBN 10 isn't printed inside the book, it's automatically calculated from the ISBN 13 and diplayed in the 'Book details' section of the Icebean.</p>
 
 <p><b>Main features:</b></p>
 
 <p>1. Searches the given ISBN's book on <b>Google books</b>, <b>Amazon</b>, <b>Goodreads</b>, <b>Open Library</b>, and <b>OCLC Classify</b>.<BR>
 2. Displays and resizes cover images that may be available from these websites.<BR>
 3. Displays item information with Marc reference for the following fields (when available):</p>
-<LI>Title
-<LI>ISBN
-<LI>Language
-<LI>Author
-<LI>Publisher
-<LI>Date of publication
-<LI>Number of pages
-<LI>Dimensions
-<LI>Dewey number and Dewey edition
-<LI>Price (converted to CHF)
-<LI>Summary (description)
-<LI>FAST subject Headings
-</LI>
+ISBN and ISBN 10 <BR>
+Title <BR>
+Language <BR>
+Author <BR>
+Publisher, Date of publication <BR>
+Number of pages, Dimensions <BR>
+Dewey number (most frequently used in Worldcat/Classify),  and Dewey edition <BR>
+Price (converted to CHF) <BR>
+Summary (description) <BR>
+FAST subject Headings (can be copied to Mandarin M3) <BR>
 
 <p><b>Other Features:</b></p>
 <p>- The <b>siZeBean</b> is a tool that can resize JPEG pictures, using either an URL or by uploading a file to the server.<BR>
@@ -85,7 +82,7 @@ color:#002255;
 - Ctrl+Click the links in the cover images area to look for covers on <b>Librarything</b> (direct link to the cover-images page of the work that is associated to the current ISBN) or on <b>Google images</b> (searches for the current ISBN)<BR>
 - Descriptions can be saved too (as text files).<BR>
 - Searchable <b>Library Of Congress relator terms and Language codes</b>, with codes.<BR>
-- Searchable <b>FAST heading</b> engine with indication of the facets.<BR>
+- Searchable <b>FAST heading</b> engine with indication of the facets. (can be copied to Mandarin M3)<BR>
 - Ctrl+Click the links in the Expand search area to search for the ISBN in <b>Librarything</b>, <b>Classify</b>, <b>Worldcat</b>, <b>Amazon</b>, <b>BNF</b>. It is also possible to search <b>Nelligan</b> (Bibliothèques de Montreal/Canada), using the author's name.</p> 
 
 <p><b>Options:</b></p>

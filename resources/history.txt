@@ -1,3 +1,5 @@
+v483 20160222 Fast heading lookup result can now also be copied to Mandarin M3.<BR>
+v480 20160220 Fast heading are now fully displayed in Marc format and can be copied to Mandarin M3.<BR> 
 v470 20161214 Removed Librathing cover image, replaced with links to Librarything's cover-images pages and to Google images.<BR>
 v467 20161213 Improved price retrieval after Amazon UK and COM started using currency symbols instead of currency codes.<BR>
 v466 20161213 Improved price retrieval / avoid Kindle editions (Amazon function).<BR>
@@ -44,11 +46,7 @@ v304 20130430 added Buy from Amazon button<BR>
 v303 20130429 added region selector for Amazon.<BR>
 v302 20130429 added Amazon.<BR>
 v301 20130427 LT, OL, GB, save images buttons, save GB description.
-<BR><BR>
-Known bugs:<BR>
-Currency converter only works with euros (i.e. from Amazon.fr)
-<BR>
-To do:<BR>ISBN to Work converter in Librarything (create a link that goes straightly to the covers page<BR>
+
 
 
 
