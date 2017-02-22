@@ -43,7 +43,7 @@ color:#002255;
 </style>
 </head>
     
-<version><verysmalli>the Ice Bean Documentation v1.4 20161214</verysmalli></version>
+<version><verysmalli>the Ice Bean Documentation v1.5 20170222</verysmalli></version>
 
 <table width = '1024'>
   <TR height='38px'>
