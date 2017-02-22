@@ -22,6 +22,7 @@ include 'resources/function_fast.php';
 $fastresults = fast2mdr($isbn);
 $marcArray = $fastresults[0];
 $readArray = $fastresults[1];
+
 // affichage des resultats en html et caches pour javascript
 $j = 0;
 echo '<div id="fastwrapper">';
@@ -31,8 +32,8 @@ foreach ($marcArray as $value) {
   echo '<div class ="hidden" id="fast'.$j.'" style="display: none;">'.$value.'</div>'; 
   $j++;
 }
-echo '</div>';
-var_dump($marcArray) ;
+
+//var_dump($marcArray) ;
 ?>
 
 <script src="js/clipboard.min.js"></script>
