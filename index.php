@@ -18,10 +18,10 @@
     
 <body onload="document.forms.main_form.isbn.focus(); setUpExamplePage();setUpPage()">
 
-<version><verysmalli>the Ice Bean v4.83 20170222fd</verysmalli></version>
+<version><verysmalli>the Ice Bean v4.91 20170223fd</verysmalli></version>
 
+<!--PHP-->
 <?php
-
 // nettoyage des caches sur le serveur (images et descriptions)
     //Repertoire images
     $imagesdir = "images/";
@@ -94,7 +94,6 @@ function ISBN13toISBN10($isbn) {
 }
 
 $isbn10 = ISBN13toISBN10($isbn);
-
   
 // requete Google books
 // retourne un tableau: [0]=items, [1]=title, [2]=author, [3]=description, [4]=image URL, [5]= tableau contenant les autres url
@@ -228,7 +227,7 @@ for ($i=1, $c=count($arrayAMimages); $i<=$c; $i++) {
     $filenamegr = $filename.'-gr.jpg';
     $picurlgr = "images/download.php?img=$filenamegr";
 
-// choix de la description à afficher en fonction du choix dansle formulaire
+// choix de la description à afficher en fonction du choix dans le formulaire
     
    if ($_POST["Descr"] == 'amazon') {
    $descr = $descrurlam;
@@ -278,9 +277,22 @@ $nh_status = "Default H value was used: ";
 $nh = "120";
 }
 
+// Log de connexion;
+   if (strlen($isbn) >= 10) {
+    $hostname = $hostname = gethostbyaddr($_SERVER['REMOTE_ADDR']);
+    $logtext = date(DATE_RFC822)." Hostname: ".$hostname." ISBN: ".$isbn." Title: ".$title."\r\n";
+    $filename_log = 'resources/log.txt';
+    $FileHandle = fopen($filename_log, 'a') or die("Can't open log.txt file");
+    fwrite($FileHandle, $logtext);
+    fclose($ourFileHandle);
+   }
+
 ?>
 
+<!--HTML-->
+<!--Affichage de la page principale-->
 <table width = '1280'>
+  <!--Titre  / Lien vers Sizebean-->
   <TR height='38px'>
         <TH align='left' colspan='6'><img align='middle' src='resources/icebean2.png'></TH>
         <TH align='center' colspan='2'>
@@ -289,6 +301,7 @@ $nh = "120";
            </form>
         </TH>
   </TR>
+  <!--Formulaire et options-->
   <TR>
     <TD colspan='1'><FORM NAME="main_form" ACTION="index.php" METHOD="POST">
       <verysmalli>Picture height (in pixels) </verysmalli></td>
@@ -317,230 +330,223 @@ $nh = "120";
       <INPUT TYPE="submit" NAME="SEND">
     </TD>
   </TR>
-
-
-<?php
-
-// Affichage des resultats;
-//Cover images
-
-  echo "<tr>";
-    echo "<th align='left' colspan='4'>Cover Images</th>";
-    echo "<th align='left' colspan='4'>Title and Summary</th>";
-  echo "</tr>";
-  echo "<tr>";
- // echo "<td colspan='1'><small>Librarything</small></td>";
-    echo "<td colspan='1'><small>Open Library</small></td>";
-    echo "<td colspan='1'><small>Goodreads</small></td>";
-    echo "<td colspan='1'><small>Google books</small></td>";
-    echo "<td colspan='1'><small>Amazon</small></td>";
-    echo "<td colspan='1'><small>Title (245#ab)</small></td>";
-    echo "<td align='right' colspan='3'><small>$title</small></td>";
-    
-  echo "</tr>";
-  echo "<tr style='height:136px'>";
-//  echo "<td colspan='1'><img align='middle' src='resources/resizer.php?url=".$imagepathLT."&h=".$nh."&fn=".$filenamelt."'></td>";
-    echo "<td colspan='1'><img align='middle' src='resources/resizer.php?url=".$imagepathOL."&h=".$nh."&fn=".$filenameol."'></td>";
-    echo "<td colspan='1'><img align='middle' src='resources/resizer.php?url=".$imagepathGR."&h=".$nh."&fn=".$filenamegr."'></td>";
-    echo "<td colspan='1'><img align='middle' src='resources/resizer.php?url=".$imagepathGB."&h=".$nh."&fn=".$filenamegb."'></td>";
-    echo "<td colspan='1'><img align='middle' src='resources/resizer.php?url=".$imagepathAM."&h=".$nh."&fn=".$filenameam."'></td>";
-    echo "<td colspan='4 align='right'><verysmalli>$descr</verysmalli></td>";
-  echo "</tr>";
-  echo "<tr>";
-    echo "<td colspan='1'><form><input type='button' value='save' onClick=\"window.location.href='$picurllt'\"></form></td>";
-//  echo "<td colspan='1'><form><input type='button' value='save' onClick=\"window.location.href='$picurlol'\"></form></td>";
-    echo "<td colspan='1'><form><input type='button' value='save' onClick=\"window.location.href='$picurlgr'\"></form></td>";
-    echo "<td colspan='1'><form><input type='button' value='save' onClick=\"window.location.href='$picurlgb'\"></form></td>";
-    echo "<td colspan='1'><form><input type='button' value='save' onClick=\"window.location.href='$picurlam'\"></form></td>";
-    echo "<td colspan='2'><small> Summary (520#a) </small></td>";
-    echo "<td colspan='1'><form><input type='button' value='save' onClick=\"window.location.href='$descrfileurl'\"></form></td>";
-    echo "<td colspan='1'><verysmalli>Amazon status: $review_status  </verysmalli></td>";
-  echo "</tr>";
-  echo "<tr>";
-    echo "<td colspan='2 align='left'><verysmalli><a href='".$LTCovers."''>Open LibraryThing's cover-images page</a></verysmalli></td>";
-    echo "<td colspan='2 align='left'><verysmalli><a href='https://www.google.ch/search?q=".$isbn."&tbm=isch'>Search Google images</a></verysmalli></td>";
-    
-    echo "<td colspan='4 align='right'><verysmalli></verysmalli></td>";
-  echo "</tr>";
-
-echo "</center></td></TR>";
-
-// Book details
-  echo "<tr>";
-    echo "<th align='left' colspan='4'>Book details</th>";
-    echo "<th align='left' colspan='4'>Fast subject headings (6xx)</th>";
-  echo "</tr>";
-  echo "<tr>";
-    echo "<td colspan='1' align='left'><small>ISBN (020#a)</small></td>";
-    echo "<td colspan='1' align='right'><small>$isbn</small></td>";
-    echo "<td colspan='1' align='right'><small>ISBN 10: </small></td>";
-    echo "<td colspan='1' align='right'><small>$isbn10</small></td>";
-    echo "<td colspan='4' rowspan='9'align='right'><small>";
-        // Classify (6xx)
-        // Affichage des fast dans la colonne de droite
-        //echo $fast[0];
-        //if ($fast[0] ='') {
-        //  echo "ot found";
-        //}
-        //$i=1;
-        //while ($i<=(count($fast))-1) {
-        //  echo "<br>";
-        //  echo $fast[$i];
-        //  $i++;
-        //}
-
-        // affichage des resultats en html et caches pour javascript
-        $j = 0;
-          echo '<div id="fastwrapper">';
-          foreach ($marcArray as $value) {
-            echo '<div class ="fast" id="fastdisplay'.$j.'">'.$readArray[$j].'</div>';
-            echo '<button class="buttons" id="copy-button'.$j.'" data-clipboard-target="#fast'.$j.'">Copy</button>';
-            echo '<div class ="hidden" id="fast'.$j.'" style="display: none;">'.$value.'</div>'; 
-            $j++;
+  <!--Affichage des resultats-->
+  <!--Cover images / title and summary-->
+  <tr>
+    <th align='left' colspan='4'>Cover Images</th>
+    <th align='left' colspan='4'>Title and Summary</th>
+  </tr>
+  <tr>
+    <td colspan='1'><small>Open Library</small></td>
+    <td colspan='1'><small>Goodreads</small></td>
+    <td colspan='1'><small>Google books</small></td>
+    <td colspan='1'><small>Amazon</small></td>
+    <td colspan='1'><small>Title (245#ab)</small></td>
+    <td align='right' colspan='3'><small><?php echo $title; ?></small></td>
+  </tr>
+  <tr style='height:136px'>
+    <td colspan='1'><img align='middle' src='resources/resizer.php?url=<?php echo $imagepathOL; ?>&h=<?php echo $nh; ?>&fn=<?php echo $filenameol; ?>'></td>
+    <td colspan='1'><img align='middle' src='resources/resizer.php?url=<?php echo $imagepathGR; ?>&h=<?php echo $nh; ?>&fn=<?php echo $filenamegr; ?>'></td>
+    <td colspan='1'><img align='middle' src='resources/resizer.php?url=<?php echo $imagepathGB; ?>&h=<?php echo $nh; ?>&fn=<?php echo $filenamegb; ?>'></td>
+    <td colspan='1'><img align='middle' src='resources/resizer.php?url=<?php echo $imagepathAM; ?>&h=<?php echo $nh; ?>&fn=<?php echo $filenameam; ?>'></td>
+    <td colspan='4 align='right'><verysmalli><?php echo $descr; ?></verysmalli></td>
+  </tr>
+  <tr>
+    <td colspan='1'><form><input type='button' value='save' onClick="window.location.href='<?php echo $picurlol; ?>'"></form></td>
+    <td colspan='1'><form><input type='button' value='save' onClick="window.location.href='<?php echo $picurlgr; ?>'"></form></td>
+    <td colspan='1'><form><input type='button' value='save' onClick="window.location.href='<?php echo $picurlgb; ?>'"></form></td>
+    <td colspan='1'><form><input type='button' value='save' onClick="window.location.href='<?php echo $picurlam; ?>'"></form></td>
+    <td colspan='2'><small> Summary (520#a) </small></td>
+    <td colspan='1'><form><input type='button' value='save' onClick="window.location.href='<?php echo $descrfileurl; ?>'"></form></td>
+    <td colspan='1'><verysmalli>Amazon status: <?php echo $review_status; ?>  </verysmalli></td>
+  </tr>
+  <tr>
+    <td colspan='2 align='left'><verysmalli><a href='<?php echo $LTCovers; ?>'>Open LibraryThing's cover-images page</a></verysmalli></td>
+    <td colspan='2 align='left'><verysmalli><a href='https://www.google.ch/search?q=<?php echo $isbn; ?>&tbm=isch'>Search Google images</a></verysmalli></td>
+    <td colspan='4'></td>
+  </tr>
+<!--Affichage Book details / Fast headings-->
+  <tr>
+    <th align='left' colspan='4'>Book details</th>
+    <th align='left' colspan='4'>Fast subject headings (6xx)</th>
+  </tr>
+  <!--ISBN-->
+  <tr>
+    <td colspan='1' align='left'><small>ISBN (020#a)</small></td>
+    <td colspan='1' align='right'><small><?php echo $isbn; ?></small></td>
+    <td colspan='1' align='right'><small>ISBN 10: </small></td>
+    <td colspan='1' align='right'><small><?php echo $isbn10; ?></small></td>
+  <!--FAST-->
+    <td colspan='4' rowspan='9'align='right'><small>
+      <div id="fastwrapper">
+        <?php
+          $j = 0;
+              foreach ($marcArray as $value) {
+                echo '<div class ="fast" id="fastdisplay'.$j.'">'.$readArray[$j].'</div>';
+                echo '<button class="buttons" id="copy-button'.$j.'" data-clipboard-target="#fast'.$j.'">Copy</button>';
+                echo '<div class ="hidden" id="fast'.$j.'" style="display: none;">'.$value.'</div>'; 
+                $j++;
+              }
+        ?>
+      </div></small>
+    </td>
+  </tr>
+  <!--Details-->
+  <tr>
+    <td colspan='2' width='25%' align='left'><small>Language (041#a)</small></td>
+    <td colspan='2' width='25%' align='right'><small><?php echo $language; ?></small></td>
+  </tr>
+  <tr>
+    <td colspan='2' align='left'><small>Author (100#a)</small></td>
+    <td colspan='2' align='right'><small><?php echo $author; ?></small></td>
+  </tr>
+  <tr>
+    <td colspan='2' align='left'><small>Publisher (264#b)</small></td>
+    <td colspan='2' align='right'><small><?php echo $publisher; ?></small></td>
+  </tr>
+  <tr>
+    <td colspan='2' align='left'><small> Date of publication (264#c)</small></td>
+    <td colspan='2' align='right'><small><?php echo $publicationdate; ?></small></td>
+  </tr>
+  <tr>
+    <td colspan='2' align='left'><small>Extent (Number of pages) (300#a)</small></td>
+    <td colspan='2' align='right'><small><?php echo $pages; ?> pages</small></td>
+  </tr>
+  <tr>
+    <td colspan='2' align='left'><small>Dimensions (300#c)</small></td>
+    <td colspan='2' align='right'><small><?php echo $heightcm; ?> cm</small></td>
+  </tr>
+  <tr>
+    <td colspan='2' align='left'><small>Most frequent Dewey number (edition)</small></td>
+    <td colspan='2' align='right'><small><?php echo $dewey; ?> (<?php echo $ddced; ?></small></td>
+  </tr>
+  <tr>
+    <td colspan='2' align='left'><small>Price (9) [<?php echo $formattedprice; ?> = ]</small></td>
+    <td colspan='2' align='right'><small><?php echo $swissprice; ?></small></td>
+  </tr>
+  <!--Tools-->
+  <tr>
+    <th align='left' colspan='8'>Tools</th>
+  </tr>
+  <tr>
+    <!--LOC relator terms-->
+    <td colspan='2'><input type='text' id='ajax' list='json-datalist' placeholder='type'>
+      <datalist id='json-datalist'></datalist></td>
+    <!--LOC language codes-->
+    <td colspan='2'><input type='text' id='lng' list='json-lng' placeholder='type'>
+      <datalist id='json-lng'></datalist></td>
+    <!--Assign FAST-->
+    <td colspan='4'>
+      <form id='dummySearchForm' class='dummy'  action=''>
+        <div>
+          <input id='examplebox'  type='text' placeholder='Fast headings' size='60'></input>
+          <small><span id='exampleXtra'>&nbsp;</span></small>
+        </div>
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td colspan='4'></td>
+    <!--Rameau-->
+    <td colspan='4'>
+      <form id='rameau' class='ram'  action=''>
+        <input id='ramquery' type='text' placeholder='Rameau' size='60'></input>
+        <small><input type='button' style='margin:5px' onclick='ramSearch()' value='Search'></small>
+      </form>
+    </td>
+  </tr>
+  <!--Expand search-->
+  <tr>
+    <th align='left' colspan='8'>Expand search</th>
+  </tr>
+  <tr>
+    <td colspan='1'><verysmalli>
+      <a href='http://covers.librarything.com/isbn/<?php echo $isbn; ?>'>LibraryThing</a></verysmalli></td>
+    <td colspan='1'><verysmalli>
+      <a href='http://classify.oclc.org/classify2/ClassifyDemo?search-standnum-txt=<?php echo $isbn; ?>'>OCLC Classify</a></verysmalli></td>
+    <td colspan='1'><verysmalli>
+      <a href='http://www.worldcat.org/search?q=<?php echo $isbn; ?>'>OCLC Worldcat</a></verysmalli></td>
+    <td colspan='1'><verysmalli>
+      <a href='<?php echo $pageurl; ?>'>Amazon</a></verysmalli></td>
+    <td colspan='1'><verysmalli>
+      <a href='https://www.goodreads.com/book/isbn/<?php echo $isbn; ?>'>Goodreads</a></verysmalli></td>
+    <td colspan='1'><verysmalli>
+      <a href='http://catalogue.bnf.fr/rechercher.do?motRecherche=<?php echo $isbn; ?>&critereRecherche=0&depart=0&facetteModifiee=ok'>BNF (ISBN13)</a></verysmalli></td>
+    <td colspan='1'><verysmalli>
+      <a href='http://catalogue.bnf.fr/rechercher.do?motRecherche=<?php echo $isbn10; ?>&critereRecherche=0&depart=0&facetteModifiee=ok'>BNF (ISBN10)</a></verysmalli></td>
+    <td colspan='1'><verysmalli>
+      <a href='http://nelligan.ville.montreal.qc.ca/search*frc/a?searchtype=Y&searcharg=<?php echo urlencode($author); ?>&searchscope=58&extended=0&SORT=D&submit.x=0&submit.y=0&submit=Chercher'>Nelligan (search by author)</a></verysmalli></td>
+  </tr>
+  <!--Output log-->
+  <tr>
+    <th align='left' colspan='8' >Output log </th>
+  </tr>
+  <tr>
+    <td colspan='8'>
+      <verysmalli>
+        <?php
+          echo $isbn_status.$isbn." (ASIN: ".$asin.") -- ".$nh_status.$nh." pixels -- ".$Amregion_status." -- ";
+          if (!($descr_status == NULL)) {
+            echo $descr_status." -- ";
           }
-    echo "</small></td>";
-  echo "</tr>";
-  echo "<tr>";
-    echo "<td colspan='2' width='25%' align='left'><small>Language (041#a)</small></td>";
-    echo "<td colspan='2' width='25%' align='right'><small>$language</small></td>";
-  echo "</tr>";
-  echo "<tr>";
-    echo "<td colspan='2' align='left'><small>Author (100#a)</small></td>";
-    echo "<td colspan='2' align='right'><small>$author  </small></td>";
-  echo "</tr>";
-  echo "<tr>";
-    echo "<td colspan='2' align='left'><small>Publisher (264#b)</small></td>";
-    echo "<td colspan='2' align='right'><small>$publisher  </small></td>";
-  echo "</tr>";
-  echo "<tr>";
-    echo "<td colspan='2' align='left'><small> Date of publication (264#c)</small></td>";
-    echo "<td colspan='2' align='right'><small>$publicationdate  </small></td>";
-  echo "</tr>";
-  echo "<tr>";
-    echo "<td colspan='2' align='left'><small>Extent (Number of pages) (300#a)</small></td>";
-    echo "<td colspan='2' align='right'><small>$pages pages  </small></td>";
-  echo "</tr>";
-  echo "<tr>";
-    echo "<td colspan='2' align='left'><small>Dimensions (300#c)</small></td>";
-    echo "<td colspan='2' align='right'><small>$heightcm cm  </small></td>";
-  echo "</tr>";
-    echo "<tr>";
-    echo "<td colspan='2' align='left'><small>Most frequent Dewey number (edition)</small></td>";
-    echo "<td colspan='2' align='right'><small>$dewey ($ddced)  </small></td>";
-  echo "</tr>";
-  echo "<tr>";
-    echo "<td colspan='2' align='left'><small>Price (9) [$formattedprice = ]  </small></td>";
-    echo "<td colspan='2' align='right'><small>$swissprice  </small></td>";
-  echo "</tr>";
-
-// Tools
-  echo "<tr>";
-    echo "<th align='left' colspan='8'>Tools</th>";
-  echo "</tr>";
-  echo "<tr>";
-  // Relator terms
-    echo "<td colspan='2'><input type='text' id='ajax' list='json-datalist' placeholder='type'>";
-    echo "<datalist id='json-datalist'></datalist></td>";
-
-  // Language codes
-    echo "<td colspan='2'><input type='text' id='lng' list='json-lng' placeholder='type'>";
-    echo "<datalist id='json-lng'></datalist></td>";
-
-  // FAST headings
-    echo "<td colspan='4'>";
-    echo "<form id='dummySearchForm' class='dummy'  action=''>";
-    echo "<div>";
-    echo "<input id='examplebox'  type='text' placeholder='Fast headings' size='60'></input>";
-    echo "<small><span id='exampleXtra'>&nbsp;<small></span>";
-    echo "</div></form></td>";
-
-  echo "</tr>";
-
-// Expand search
-  echo "<tr>";
-    echo "<th align='left' colspan='8'>Expand search</th>";
-  echo "</tr>";
-  echo "<tr>";
-    echo "<td colspan='1'><verysmalli><a href='http://covers.librarything.com/isbn/".$isbn."'>LibraryThing</a></verysmalli></td>";
-    echo "<td colspan='1'><verysmalli><a href='http://classify.oclc.org/classify2/ClassifyDemo?search-standnum-txt=".$isbn."'>OCLC Classify</a></verysmalli></td>";
-    echo "<td colspan='1'><verysmalli><a href='http://www.worldcat.org/search?q=".$isbn."'>OCLC Worldcat</a></verysmalli></td>";
-    echo "<td colspan='1'><verysmalli><a href='$pageurl'>Amazon</a></verysmalli></td>";
-    echo "<td colspan='1'><verysmalli><a href='https://www.goodreads.com/book/isbn/".$isbn."'>Goodreads</a></verysmalli></td>";
-    echo "<td colspan='1'><verysmalli><a href='http://catalogue.bnf.fr/rechercher.do?motRecherche=".$isbn."&critereRecherche=0&depart=0&facetteModifiee=ok'>BNF (ISBN13)</a></verysmalli></td>";
-    echo "<td colspan='1'><verysmalli><a href='http://catalogue.bnf.fr/rechercher.do?motRecherche=".$isbn10."&critereRecherche=0&depart=0&facetteModifiee=ok'>BNF (ISBN10)</a></verysmalli></td>";
-    echo "<td colspan='1'><verysmalli><a href='http://nelligan.ville.montreal.qc.ca/search*frc/a?searchtype=Y&searcharg=".urlencode($author)."&searchscope=58&extended=0&SORT=D&submit.x=0&submit.y=0&submit=Chercher'>Nelligan (search by author)</a></verysmalli></td>";
-
-echo "</tr>";
-
-// Output log
-echo "<tr>";
-  echo "<th align='left' colspan='8' >Output log </th></tr>";
-  echo "<td colspan='8'><verysmalli>";
-    echo $isbn_status.$isbn." (ASIN: ".$asin.") -- ".$nh_status.$nh." pixels -- ".$Amregion_status." -- ";
-
-    if (!($descr_status == NULL)) {
-      echo $descr_status." -- ";
-    }
-
-    if (!($gbtitle_status == NULL)) {
-      echo $gbtitle_status." ";
-    }
-
-    if (!($amtitle_status == NULL)) {
-      echo $amtitle_status." -- ";
-    }
-
-    if (!($descrurlam_status == NULL)) {
-      echo $descrurlam_status." -- ";
-    }
-
-   echo " -- ".$author_status." -- ".$AmRequest_status." -- ";
-
-   if (!($LTStatus == NULL)) {
-      if ($LTStatus == TRUE) {echo " Librarything covers exist -- ";}
-      else {echo "Librarything covers not found --";}
-    }
-
-    echo $classify_status."<BR>";
-
-echo "</verysmalli></td></tr>";
-
-echo "<tr align = 'right'>
-  <td colspan='4'align='right'>";
-     echo "<form method='GET' action='http://www.amazon.fr/gp/aws/cart/add.html'><input type='hidden' name='AssociateTag' value='".$associate_tag."'/>         <input type='hidden' name='SubscriptionId' value='".$public_key."'/><input type='hidden' name='ASIN.1' value='".$asin."'/><input type='hidden'           name='Quantity.1' value='1'/> <input type='image' name='add' value='Buy from Amazon.fr' border='0' alt='Buy from Amazon.fr'     align='middle' src='resources/amazon.gif'></form>";
-  echo "</td>";
-
-// Log de connexion;
-   if (strlen($isbn) >= 10) {
-    $hostname = $hostname = gethostbyaddr($_SERVER['REMOTE_ADDR']);
-    $logtext = date(DATE_RFC822)." Hostname: ".$hostname." ISBN: ".$isbn." Title: ".$title."\r\n";
-    $filename_log = 'resources/log.txt';
-    $FileHandle = fopen($filename_log, 'a') or die("Can't open log.txt file");
-    fwrite($FileHandle, $logtext);
-    fclose($ourFileHandle);
-   }
-
-?>
-
-<td align='right' colspan='4'><FORM NAME="back" ACTION="resources/documentation.php" METHOD="POST">
-     <button class='button' value='Documentation' onClick=window.location.href='resources/documentation.php'>Help</button>
-</td></form></tr>
-
+          if (!($gbtitle_status == NULL)) {
+            echo $gbtitle_status." ";
+          }
+          if (!($amtitle_status == NULL)) {
+            echo $amtitle_status." -- ";
+          }
+          if (!($descrurlam_status == NULL)) {
+            echo $descrurlam_status." -- ";
+          }
+         echo " -- ".$author_status." -- ".$AmRequest_status." -- ";
+         if (!($LTStatus == NULL)) {
+            if ($LTStatus == TRUE) {echo " Librarything covers exist -- ";}
+            else {echo "Librarything covers not found --";}
+          }
+        echo $classify_status."<BR>";
+        ?>
+      </verysmalli>
+    </td>
+  </tr>
+  <tr align = 'right'>
+    <td colspan='4' align='right'>
+      <form method='GET' action='http://www.amazon.fr/gp/aws/cart/add.html'>
+        <input type='hidden' name='AssociateTag' value='".$associate_tag."'/>
+        <input type='hidden' name='SubscriptionId' value='".$public_key."'/>
+        <input type='hidden' name='ASIN.1' value='".$asin."'/>
+        <input type='hidden'           name='Quantity.1' value='1'/>
+        <input type='image' name='add' value='Buy from Amazon.fr' border='0' alt='Buy from Amazon.fr'     align='middle' src='resources/amazon.gif'>
+      </form>
+    </td>
+    <td align='right' colspan='4'>
+      <form NAME="back" ACTION="resources/documentation.php" METHOD="POST">
+        <button class='button' value='Documentation' onClick=window.location.href='resources/documentation.php'>Help</button>
+      </form>
+    </td>
+  </tr>
 </table>
 
 </body>
 </html>
 
+<!--JAVASCRIPT-->
 <script src="js/clipboard.min.js"></script>
 <script>
-
 /* copie des fast dans le clipboard*/
-new Clipboard('.buttons', {
-            text: function(trigger) {
-                console.log(JSON.parse(trigger.nextElementSibling.textContent));
-                return JSON.parse(trigger.nextElementSibling.textContent);
-            }
-        });
+  new Clipboard('.buttons', {
+              text: function(trigger) {
+                  console.log(JSON.parse(trigger.nextElementSibling.textContent));
+                  return JSON.parse(trigger.nextElementSibling.textContent);
+              }
+          });
+/* recherche rameau */
+  function ramSearch() {
+      var ramsearchterm = document.getElementById("ramquery").value;
+      var ramsearchstring = encodeURI("http://data.bnf.fr/search?term=" + ramsearchterm + "#Rameau-results");
+      console.log(ramsearchstring);
+      window.open(ramsearchstring, '_blank');
+
+  }
 
 /* RELATOR TERMS AJAX
    Get the <datalist> and <input> elements. */
@@ -635,5 +641,4 @@ request_lng.send();
 
   ga('create', 'UA-12520299-1', 'auto');
   ga('send', 'pageview');
-
 </script>

@@ -11,7 +11,7 @@ $fast = array();
 $fastID = array();
 
 if ($clresponse === FALSE) {
-    echo "Classify request failed.\n";
+    //echo "Classify request failed.\n";
     $classify_status = "Classify request failed";}
 
 else {
