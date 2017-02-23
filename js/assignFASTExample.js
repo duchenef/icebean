@@ -44,7 +44,7 @@ function setUpPage() {
               marcfield += fastcontent + String.fromCharCode(10) + '2' + String.fromCharCode(9) + 'fast' + String.fromCharCode(10) + String.fromCharCode(0);
               marcfield = JSON.stringify(marcfield);
               /*console.log(marcfield);*/
-              jQuery('#exampleXtra').html("&nbsp" + getTypeFromTag(ui.item.tag) + "&nbsp<button class='buttons' id='copy-buttonAssign' data-clipboard-target= '#fastAssign'>Copy</button> <div class ='hidden' id='fastAssign' style='display: none;'>" + marcfield + "</div>");
+              jQuery('#exampleXtra').html("&nbsp" + getTypeFromTag(ui.item.tag) + "&nbsp<button type='button' class='buttons' id='copy-buttonAssign' data-clipboard-target= '#fastAssign'>Copy</button> <div class ='hidden' id='fastAssign' style='display: none;'>" + marcfield + "</div>");
               /*jQuery('#exampleXtra').html("&nbsp;"+ getTypeFromTag(ui.item.tag) + " / Marc: " + marcfield);*/
               
           } //end select
