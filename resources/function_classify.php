@@ -5,7 +5,35 @@
 
 function classify($isbn) {
 
-$clrequest = "http://classify.oclc.org/classify2/Classify?isbn=".$isbn;
+$clrequest_work = "http://classify.oclc.org/classify2/Classify?isbn=".$isbn."&summary=true";
+$clresponse_work = @file_get_contents($clrequest_work);
+$owis = [];
+
+if ($clresponse_work === FALSE) {
+    echo "Classify work number request failed.\n";
+    $classify_status = "Classify work number request failed";}
+
+else {
+    // parse XML
+    $pxml_w = new DOMDocument;
+    $pxml_w ->load($clrequest_work);
+    if ($pxml_w === FALSE) {
+        $classify_status = "Response for Classify work number could not be parsed.\n";
+        echo "Response for Classify work number could not be parsed.\n";
+    } 
+    
+    else {
+        $classify_status = "Classify work number request was successful. Details (Dewey, Ed., FAST): ";
+
+        $work = $pxml_w->getElementsByTagName("work");
+        foreach ($work as $work) {
+          $x = $work->getAttribute('owi');
+          array_push($owis, $x);
+        }
+    }
+}
+
+$clrequest = "http://classify.oclc.org/classify2/Classify?owi=".$owis[0];
 $clresponse = @file_get_contents($clrequest);
 $fast = array();
 $fastID = array();

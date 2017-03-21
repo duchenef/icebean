@@ -1,3 +1,4 @@
+v492 20170321 Classify request now based on work number rather than on isbn (higher chance to retrieve FAST headings).<BR>
 v491 20170223 Added experimental Rameau search box.<BR>
 v490 20170223 Rewrote main page: php replaced with plain html and javascript when possible.<BR>
 v483 20170222 Fast heading lookup result can now also be copied to Mandarin M3.<BR>

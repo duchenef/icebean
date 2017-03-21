@@ -18,7 +18,7 @@
     
 <body onload="document.forms.main_form.isbn.focus(); setUpExamplePage();setUpPage()">
 
-<version><verysmalli>the Ice Bean v4.91 20170223fd</verysmalli></version>
+<version><verysmalli>the Ice Bean v4.92 20170321fd</verysmalli></version>
 
 <!--PHP-->
 <?php
