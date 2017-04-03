@@ -1,3 +1,4 @@
+v493 20170403 Bugfix: Icebean no longer hangs when FAST api is unavailable.<BR>
 v492 20170321 Classify request now based on work number rather than on isbn (higher chance to retrieve FAST headings).<BR>
 v491 20170223 Added experimental Rameau search box.<BR>
 v490 20170223 Rewrote main page: php replaced with plain html and javascript when possible.<BR>

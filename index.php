@@ -18,7 +18,7 @@
     
 <body onload="document.forms.main_form.isbn.focus(); setUpExamplePage();setUpPage()">
 
-<version><verysmalli>the Ice Bean v4.92 20170321fd</verysmalli></version>
+<version><verysmalli>the Ice Bean v4.93 20170403fd</verysmalli></version>
 
 <!--PHP-->
 <?php
@@ -188,6 +188,7 @@ for ($i=1, $c=count($arrayAMimages); $i<=$c; $i++) {
   $classify_status = (string)$fastresults[2];
   $dewey = (string)$fastresults[3];
   $ddced = (string)$fastresults[4];
+  $fast_status = $fastresults[5];
 
 // Requetes librarything et open library
   // Librarything
@@ -503,7 +504,7 @@ $nh = "120";
             if ($LTStatus == TRUE) {echo " Librarything covers exist -- ";}
             else {echo "Librarything covers not found --";}
           }
-        echo $classify_status."<BR>";
+        echo $classify_status." -- ".$fast_status."<BR>";
         ?>
       </verysmalli>
     </td>

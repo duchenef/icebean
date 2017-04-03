@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="css/icebean.css">
 </head>
 <?php
+
 // capture de l'isbn dans l'url
 if (!isset($_GET["isbn"]))
 {
@@ -17,9 +18,13 @@ $isbn = $_GET["isbn"];
 // appel fonction fast
 $marcArray = [];
 $readArray = [];
+$fast_status = '';
 
 include 'resources/function_fast.php';
 $fastresults = fast2mdr($isbn);
+//var_dump($fastresults);
+$fast_status = $fastresults[5];
+echo $fast_status;
 $marcArray = $fastresults[0];
 $readArray = $fastresults[1];
 

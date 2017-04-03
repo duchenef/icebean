@@ -1,7 +1,7 @@
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 <?php
 function fast2mdr($isbn) {
-
+  set_time_limit(8);
   // Requete Classify
   // retourne un tableau: [0]=status, [1]=dewey, [2]=edition ddc, [3]=tableau contenant les FAST, [4]= tableau contenant les IDs des FAST
   include 'function_classify.php';
@@ -17,7 +17,35 @@ function fast2mdr($isbn) {
   $i=0;
   $marcArray =[];
   $readArray =[];
+  $fast_status = '';
 
+  function simplexml_load_file_from_url($url, $timeout = 8){
+  
+  $context = array('http' => array('timeout' => (int)$timeout));
+  
+  $data = file_get_contents($url, false, $context);
+  
+  if(!$data){
+    trigger_error('Cannot load data from url: ' . $url, E_USER_NOTICE);
+    return false;
+  }
+  
+  return simplexml_load_string($data);
+}
+
+  //return array($marcArray, $readArray, $classify_status, $dewey, $ddced, $fast_status);
+
+    $checkurl = "http://experimental.worldcat.org/fast/".$fastID[$i]."/marc21.xml";
+    $check = simplexml_load_file_from_url($checkurl);
+    if ($check == FALSE) {
+      $fast_status = 'FAST api did not respond';
+      return array($marcArray, $readArray, $classify_status, $dewey, $ddced, $fast_status, $check);
+    }
+    else {
+      $fast_status = 'FAST api responded';
+      continue;
+    }
+ 
 // si classify ne retourne pas de fast, ne rien executer
 if ($fastClassify !='not found') {
   while ($i<=(count($fastClassify))-1) {
@@ -97,6 +125,7 @@ if ($fastClassify !='not found') {
     $i++;
   }
 }
-return array($marcArray, $readArray, $classify_status, $dewey, $ddced);
+return array($marcArray, $readArray, $classify_status, $dewey, $ddced, $fast_status);
+
 }
 ?>
