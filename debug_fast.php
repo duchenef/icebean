@@ -23,8 +23,11 @@ $fast_status = '';
 include 'resources/function_fast.php';
 $fastresults = fast2mdr($isbn);
 //var_dump($fastresults);
-$fast_status = $fastresults[5];
-echo $fast_status;
+//echo '<BR>';
+//echo '<BR>';
+
+$fast_status = $fastresults[0];
+//echo $fast_status;
 $marcArray = $fastresults[0];
 $readArray = $fastresults[1];
 
